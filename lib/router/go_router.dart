@@ -1,10 +1,14 @@
 import 'package:final_project/model/barang.dart';
 import 'package:final_project/pages/add_barang.dart';
+import 'package:final_project/pages/cart_barang.dart';
+import 'package:final_project/pages/detail_riwayat.dart';
 import 'package:final_project/pages/register.dart';
+import 'package:final_project/pages/riwayat.dart';
 import 'package:final_project/pages/screens/all_barang.dart';
 import 'package:final_project/pages/screens/invoice_screens.dart';
 import 'package:final_project/pages/screens/main_screens.dart';
 import 'package:final_project/pages/screens/sell_screens.dart';
+import 'package:final_project/pages/statistik_page.dart';
 import 'package:final_project/pages/update_barang.dart';
 import 'package:go_router/go_router.dart';
 import 'package:final_project/pages/home.dart';
@@ -110,7 +114,35 @@ class AppRouter {
               name: 'invoice',
               builder: (context, state) {
                 return InvoiceScreens();
+              },
+              routes: [
+                GoRoute(
+                    path: 'cart',
+                    name: 'cart',
+                    builder: (context, state) {
+                      return CartBarang();
+                    }),
+              ]),
+          GoRoute(
+              path: 'statistik',
+              name: 'statistik',
+              builder: (context, state) {
+                return Statistik();
               }),
+          GoRoute(
+              path: 'riwayat',
+              name: 'riwayat',
+              builder: (context, state) {
+                return Riwayat();
+              },
+              routes: [
+                GoRoute(
+                    path: 'detail',
+                    name: 'detail',
+                    builder: (context, state) {
+                      return DetailRiwayat(goRouterState: state,);
+                    }),
+              ]),
         ]),
   ], initialLocation: '/home', debugLogDiagnostics: true);
 }

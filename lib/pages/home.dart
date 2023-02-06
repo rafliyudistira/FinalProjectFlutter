@@ -1,7 +1,9 @@
+import 'package:final_project/model/quantity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class HomePages extends StatefulWidget {
   const HomePages({super.key});
@@ -168,7 +170,7 @@ class _HomePagesState extends State<HomePages> {
                         padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
                         child: GestureDetector(
                           onTap: () {
-                            // context.goNamed("screens");
+                            context.goNamed("statistik");
                           },
                           child: Container(
                             margin: EdgeInsets.only(top: 400),
@@ -215,19 +217,37 @@ class _HomePagesState extends State<HomePages> {
                         padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
                         child: GestureDetector(
                           onTap: () {
-                            context.go("/login");
+                            context.goNamed('riwayat');
                           },
                           child: Container(
                             margin: EdgeInsets.only(top: 50),
                             child: Row(
                               children: [
-                                Container(
-                                  width: 90,
-                                  height: 90,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: const Color(0xFF2C2C2C),
-                                  ),
+                                Column(
+                                  children: [
+                                    Container(
+                                      width: 90,
+                                      height: 90,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                "images/orange.png")),
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: const Color(0xFF2C2C2C),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text("Riwayat",
+                                        style: GoogleFonts.alike(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                            // fontStyle: FontStyle.italic,
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .displayLarge)),
+                                  ],
                                 ),
                               ],
                             ),
@@ -237,18 +257,38 @@ class _HomePagesState extends State<HomePages> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            // context.goNamed('riwayat');
+                          },
                           child: Container(
                             margin: EdgeInsets.only(top: 50),
                             child: Row(
                               children: [
-                                Container(
-                                  width: 90,
-                                  height: 90,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: const Color(0xFF2C2C2C),
-                                  ),
+                                Column(
+                                  children: [
+                                    Container(
+                                      width: 90,
+                                      height: 90,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                "images/strawberry.png")),
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: const Color(0xFF2C2C2C),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text("Kosong",
+                                        style: GoogleFonts.alike(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                            // fontStyle: FontStyle.italic,
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .displayLarge)),
+                                  ],
                                 ),
                               ],
                             ),
@@ -258,18 +298,38 @@ class _HomePagesState extends State<HomePages> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            context.goNamed('login');
+                          },
                           child: Container(
                             margin: EdgeInsets.only(top: 50),
                             child: Row(
                               children: [
-                                Container(
-                                  width: 90,
-                                  height: 90,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: const Color(0xFF2C2C2C),
-                                  ),
+                                Column(
+                                  children: [
+                                    Container(
+                                      width: 90,
+                                      height: 90,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                "images/banana.png")),
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: const Color(0xFF2C2C2C),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text("Logout",
+                                        style: GoogleFonts.alike(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                            // fontStyle: FontStyle.italic,
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .displayLarge)),
+                                  ],
                                 ),
                               ],
                             ),

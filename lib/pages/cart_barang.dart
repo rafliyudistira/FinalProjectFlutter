@@ -7,20 +7,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quantity_input/quantity_input.dart';
 
 TextEditingController inputNama = TextEditingController();
-TextEditingController inputStock = TextEditingController();
-TextEditingController inputHarga = TextEditingController();
 TextEditingController inputTanggal = TextEditingController();
+TextEditingController itemBeli = TextEditingController();
+TextEditingController total = TextEditingController();
 
-class MainScreen extends StatefulWidget {
-  MainScreen({super.key});
+class CartBarang extends StatefulWidget {
+  CartBarang({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<CartBarang> createState() => _CartBarangState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _CartBarangState extends State<CartBarang> {
   @override
   Widget build(BuildContext context) {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -49,48 +50,48 @@ class _MainScreenState extends State<MainScreen> {
                       Navigator.pop(context);
                     },
                   ),
-                  Row(
-                    children: [
-                      // const Text(
-                      //   'Add',
-                      //   style: TextStyle(
-                      //     color: Colors.white,
-                      //     fontFamily: 'Inter',
-                      //     fontWeight: FontWeight.w700,
-                      //   ),
-                      // ),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.add_business_outlined,
-                          color: Colors.white,
-                          size: 33,
-                        ),
-                        onPressed: () {
-                          context.goNamed('add');
-                        },
-                      ),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(left: 30.0),
-                      //   child: SizedBox(
-                      //     width: 50,
-                      //     height: 50,
-                      //     child: Card(
-                      //       semanticContainer: true,
-                      //       clipBehavior: Clip.antiAliasWithSaveLayer,
-                      //       color: Colors.transparent,
-                      //       child: Image.asset(
-                      //         "images/kadirProfile.jpg",
-                      //         fit: BoxFit.fill,
-                      //       ),
-                      //       shape: const RoundedRectangleBorder(
-                      //         borderRadius:
-                      //             BorderRadius.all(Radius.circular(15.0)),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // )
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     // const Text(
+                  //     //   'Add',
+                  //     //   style: TextStyle(
+                  //     //     color: Colors.white,
+                  //     //     fontFamily: 'Inter',
+                  //     //     fontWeight: FontWeight.w700,
+                  //     //   ),
+                  //     // ),
+                  //     // IconButton(
+                  //     //   icon: const Icon(
+                  //     //     Icons.post_add_rounded,
+                  //     //     color: Colors.white,
+                  //     //     size: 33,
+                  //     //   ),
+                  //     //   onPressed: () {
+                  //     //     context.goNamed('add');
+                  //     //   },
+                  //     // ),
+                  //     // Padding(
+                  //     //   padding: const EdgeInsets.only(left: 30.0),
+                  //     //   child: SizedBox(
+                  //     //     width: 50,
+                  //     //     height: 50,
+                  //     //     child: Card(
+                  //     //       semanticContainer: true,
+                  //     //       clipBehavior: Clip.antiAliasWithSaveLayer,
+                  //     //       color: Colors.transparent,
+                  //     //       child: Image.asset(
+                  //     //         "images/kadirProfile.jpg",
+                  //     //         fit: BoxFit.fill,
+                  //     //       ),
+                  //     //       shape: const RoundedRectangleBorder(
+                  //     //         borderRadius:
+                  //     //             BorderRadius.all(Radius.circular(15.0)),
+                  //     //       ),
+                  //     //     ),
+                  //     //   ),
+                  //     // )
+                  //   ],
+                  // ),
                 ],
               ),
             ),
@@ -183,14 +184,18 @@ class _MainScreenState extends State<MainScreen> {
                               const EdgeInsets.only(left: 5, right: 5, top: 5),
                           child: Center(
                             child: GestureDetector(
-                              onTap: () {
-                                context.goNamed('sell', queryParams: {
-                                  "nama": barang['nama_barang'],
-                                  "harga": barang['harga'].toString(),
-                                  "stock": barang['stock'].toString(),
-                                  "id": barang['id'],
-                                  "category": barang['category'],
-                                });
+                              onTap: () async {
+                                // await inventory.doc(barang.id).update({
+                                //   'select': true,
+                                //   'qty': 1,
+                                //   "total": barang['harga']
+                                // });
+                                // context.goNamed('sell', queryParams: {
+                                //   "nama": barang['nama_barang'],
+                                //   "harga": barang['harga'],
+                                //   "stock": barang['stock'],
+                                //   "id": barang['id'],
+                                // });
                                 // Navigator.push(
                                 //     context,
                                 //     MaterialPageRoute(
@@ -207,19 +212,39 @@ class _MainScreenState extends State<MainScreen> {
                                         bottomLeft: Radius.circular(30.0),
                                         bottomRight: Radius.circular(30.0))),
                                 child: Padding(
-                                  padding: const EdgeInsets.only(top: 20.0),
+                                  padding: const EdgeInsets.only(top: 10.0),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          IconButton(
+                                            onPressed: () async {
+                                              await inventory
+                                                  .doc(barang.id)
+                                                  .update({
+                                                'select': true,
+                                                'qty': 1,
+                                                "total": barang['harga']
+                                              });
+                                            },
+                                            icon: Icon(Icons.add_shopping_cart),
+                                            color: Color(0xFFF1C950),
+                                            iconSize: 30,
+                                          ),
+                                        ],
+                                      ),
                                       SizedBox(
-                                          width: 180,
-                                          height: 120,
+                                          width: 160,
+                                          height: 100,
                                           child:
                                               Image.asset('images/grapes.png')),
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                            top: 15.0, left: 15.0),
+                                            top: 10.0, left: 15.0),
                                         child: Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
@@ -264,11 +289,12 @@ class _MainScreenState extends State<MainScreen> {
                                                   fontFamily: "Inter",
                                                   fontWeight: FontWeight.w700),
                                             ),
-                                            Padding(
-                                              padding: EdgeInsets.only(left: 0),
+                                            const Padding(
+                                              padding:
+                                                  EdgeInsets.only(left: 5.0),
                                               child: Text(
-                                                "${barang['category']} Per Kg",
-                                                style: const TextStyle(
+                                                "Per Kg",
+                                                style: TextStyle(
                                                     fontSize: 15,
                                                     color: Colors.grey),
                                               ),

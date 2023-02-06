@@ -245,9 +245,12 @@ class _AddBarangState extends State<AddBarang> {
                             sweatAlert(context);
                             var docid = await inventory.add({
                               "nama_barang": inputName.text,
-                              "harga": inputHarga.text,
-                              "stock": inputStock.text,
+                              "harga": int.parse(inputHarga.text),
+                              "stock": int.parse(inputStock.text),
                               "category": selectDrop,
+                              "qty": 0,
+                              "total": 0,
+                              "select": false,
                               "date": "${DateTime.now()}",
                             }).then((value) => value.id);
                             inventory.doc(docid).set(
