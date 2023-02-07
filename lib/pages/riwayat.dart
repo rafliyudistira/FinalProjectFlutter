@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/model/getcollection.dart';
+import 'package:final_project/model/sweat_allert.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class Riwayat extends StatefulWidget {
   const Riwayat({super.key});
@@ -20,10 +22,22 @@ class _RiwayatState extends State<Riwayat> {
   @override
   Widget build(BuildContext context) {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-    CollectionReference invoice = firestore.collection('invoice');
+    CollectionReference inpoice = firestore.collection('invoice');
+    Future<void> deleteAllTaskDocs() {
+      return inpoice
+          .doc(invoice.id)
+          .collection('DaftarBarang')
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach((doc) {
+          doc.reference.delete();
+        });
+      });
+    }
+
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
-          stream: invoice.snapshots(),
+          stream: inpoice.snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return Container(
@@ -63,7 +77,7 @@ class _RiwayatState extends State<Riwayat> {
                     ),
 
                     StreamBuilder<QuerySnapshot>(
-                      stream: invoice.snapshots(),
+                      stream: inpoice.snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           // var fruitList = snapshot.data;
@@ -185,18 +199,133 @@ class _RiwayatState extends State<Riwayat> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                      "Total ${invoice['totalHarga']}",
-                                                      style: const TextStyle(
-                                                          color:
-                                                              Color(0xFFF1C950),
-                                                          fontSize: 25,
-                                                          fontFamily: "Inter",
-                                                          fontWeight:
-                                                              FontWeight.w700),
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 15,
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "Total ${invoice['totalHarga']}",
+                                                          style: const TextStyle(
+                                                              color: Color(
+                                                                  0xFFF1C950),
+                                                              fontSize: 25,
+                                                              fontFamily:
+                                                                  "Inter",
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700),
+                                                        ),
+                                                        Container(
+                                                          child: Row(
+                                                            children: [
+                                                              // IconButton(
+                                                              //     onPressed:
+                                                              //         () {},
+                                                              //     icon: Icon(Icons
+                                                              //         .update),
+                                                              //     color: Color(
+                                                              //         0xFFF1C950),
+                                                              //     iconSize: 30),
+                                                              IconButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    Alert(
+                                                                      style:
+                                                                          alertStyle,
+                                                                      context:
+                                                                          context,
+                                                                      type: AlertType
+                                                                          .warning,
+                                                                      title:
+                                                                          "Hapus!",
+                                                                      desc:
+                                                                          "Yakin ingin menghapus?",
+                                                                      buttons: [
+                                                                        DialogButton(
+                                                                          radius:
+                                                                              BorderRadius.circular(15),
+                                                                          child:
+                                                                              Text(
+                                                                            "Batal",
+                                                                            style:
+                                                                                TextStyle(color: Colors.white, fontSize: 20),
+                                                                          ),
+                                                                          onPressed: () =>
+                                                                              Navigator.pop(context),
+                                                                          color: Color.fromRGBO(
+                                                                              0,
+                                                                              179,
+                                                                              134,
+                                                                              1.0),
+                                                                          gradient:
+                                                                              LinearGradient(colors: [
+                                                                            Color.fromARGB(
+                                                                                255,
+                                                                                237,
+                                                                                87,
+                                                                                87),
+                                                                            Color.fromARGB(
+                                                                                255,
+                                                                                199,
+                                                                                125,
+                                                                                52)
+                                                                          ]),
+                                                                        ),
+                                                                        DialogButton(
+                                                                          radius:
+                                                                              BorderRadius.circular(15),
+                                                                          child:
+                                                                              Text(
+                                                                            "Ya",
+                                                                            style:
+                                                                                TextStyle(color: Colors.white, fontSize: 20),
+                                                                          ),
+                                                                          onPressed:
+                                                                              () {
+                                                                            inpoice.doc(invoice.id).delete();
+                                                                            inpoice.doc(invoice.id).collection('DaftarBarang').get().then((QuerySnapshot
+                                                                                querySnapshot) {
+                                                                              querySnapshot.docs.forEach((doc) {
+                                                                                doc.reference.delete();
+                                                                              });
+                                                                            });
+
+                                                                            // inpoice.doc(invoice.id).delete();
+                                                                            // inventory.doc(id).delete();
+                                                                            // context.goNamed('screens');
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          gradient:
+                                                                              LinearGradient(colors: [
+                                                                            Color.fromRGBO(
+                                                                                116,
+                                                                                116,
+                                                                                191,
+                                                                                1.0),
+                                                                            Color.fromRGBO(
+                                                                                52,
+                                                                                138,
+                                                                                199,
+                                                                                1.0)
+                                                                          ]),
+                                                                        )
+                                                                      ],
+                                                                    ).show();
+                                                                  },
+                                                                  icon: Icon(Icons
+                                                                      .delete),
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          222,
+                                                                          0,
+                                                                          0),
+                                                                  iconSize: 30),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                     const Center(
                                                       child: Padding(

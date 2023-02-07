@@ -175,7 +175,7 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                                   ),
                                 ),
 
-                                SizedBox(
+                                const SizedBox(
                                   height: 12,
                                 ),
                                 Column(
@@ -183,7 +183,7 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                                     Consumer<Quantity>(
                                       builder: (context, harga, child) => Text(
                                         "Total Belanja : ${total}",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontFamily: "Inter",
                                             fontSize: 20,
@@ -192,23 +192,11 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                                     ),
                                   ],
                                 ),
-                                // const SizedBox(
-                                //   height: 1,
-                                // ),
-                                // TextButton(
-                                //   onPressed: () async {
-                                //     context.go("/register");
-                                //   },
-                                //   child: const Text(
-                                //     "Buat Akun?",
-                                //     style: TextStyle(fontWeight: FontWeight.bold),
-                                //   ),
-                                // ),
                               ],
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Padding(
@@ -216,7 +204,7 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
+                              const Text(
                                 "Tambah Belanja",
                                 style: TextStyle(
                                     color: Colors.white,
@@ -245,13 +233,10 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              // mainAxisSpacing: 6,
-                              // crossAxisSpacing: 6,
                               childAspectRatio: 2 / 3.5,
                             ),
                             itemCount: snapshot.data!.docs.length,
                             itemBuilder: (context, indeks) {
-                              // print(snapshot.data!.docs.length);
                               DocumentSnapshot barang =
                                   snapshot.data!.docs[indeks];
                               if (barang['select'] == true) {
@@ -269,25 +254,7 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                                       left: 5, right: 5, top: 5),
                                   child: Center(
                                     child: GestureDetector(
-                                      onTap: () async {
-                                        // await inventory.doc(barang.id).update({
-                                        //   'select': false,
-                                        // });
-                                        // context.goNamed('sell', queryParams: {
-                                        //   "nama": barang['nama_barang'],
-                                        //   "harga": barang['harga'],
-                                        //   "stock": barang['stock'],
-                                        //   "id": barang['id'],
-                                        //   "category": barang['category'],
-                                        // }
-                                        // );
-                                        // Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (context) => SellScreens(
-                                        //               fruit: barang[indeks],
-                                        //             )));
-                                      },
+                                      onTap: () async {},
                                       child: Card(
                                         color: const Color(0xFF2C2C2C),
                                         shape: const RoundedRectangleBorder(
@@ -329,24 +296,33 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                                                             .update({
                                                           'select': false,
                                                         });
+
+                                                        total -=
+                                                            barang['harga'] *
+                                                                (barang['qty'] +
+                                                                    1);
                                                       },
-                                                      icon: Icon(Icons.delete),
-                                                      color: Color.fromARGB(
-                                                          255, 215, 0, 0),
+                                                      icon: const Icon(
+                                                          Icons.delete),
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255, 215, 0, 0),
                                                       iconSize: 30,
                                                     )
                                                   ],
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: 10.0, left: 15.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 10.0,
+                                                          left: 15.0),
                                                   child: Align(
                                                     alignment:
                                                         Alignment.centerLeft,
                                                     child: Text(
                                                       "Stock ${barang['stock']}",
                                                       // "Stock ${value.stock.toString()}",
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                         color:
                                                             Color(0xFFF1C950),
                                                         fontFamily: "Inter",
@@ -359,15 +335,16 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: 5.0, left: 15.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 5.0, left: 15.0),
                                                   child: Align(
                                                     alignment:
                                                         Alignment.centerLeft,
                                                     child: Text(
                                                       barang['harga']
                                                           .toString(),
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                         color:
                                                             Color(0xFFF1C950),
                                                         fontFamily: "Inter",
@@ -380,14 +357,15 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: 5.0, left: 10.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 5.0, left: 10.0),
                                                   child: Align(
                                                     alignment:
                                                         Alignment.centerLeft,
                                                     child: Text(
                                                       barang['nama_barang'],
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 30,
                                                           fontFamily: "Inter",
@@ -396,7 +374,7 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                                                     ),
                                                   ),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 20,
                                                 ),
                                                 Consumer<Quantity>(
@@ -412,20 +390,20 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                                                               width: 40,
                                                               height: 40,
                                                               decoration: BoxDecoration(
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          255,
-                                                                          73,
-                                                                          73,
-                                                                          73),
+                                                                  color: const Color
+                                                                          .fromARGB(
+                                                                      255,
+                                                                      73,
+                                                                      73,
+                                                                      73),
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
                                                                               50)),
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .only(
+                                                              child:
+                                                                  const Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
                                                                         bottom:
                                                                             20),
                                                                 child: Icon(Icons
@@ -461,16 +439,17 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                                                                 width: 40,
                                                                 height: 40,
                                                                 decoration: BoxDecoration(
-                                                                    color: Color(
+                                                                    color: const Color(
                                                                         0xFFF1C950),
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             50)),
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .only(
-                                                                      bottom:
-                                                                          20),
+                                                                child:
+                                                                    const Padding(
+                                                                  padding: EdgeInsets
+                                                                      .only(
+                                                                          bottom:
+                                                                              20),
                                                                   child: Icon(Icons
                                                                       .minimize),
                                                                 ),
@@ -479,19 +458,21 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                                                       Container(
                                                         height: 40,
                                                         width: 50,
-                                                        decoration: BoxDecoration(
-                                                            color: Colors
-                                                                .transparent),
+                                                        decoration:
+                                                            const BoxDecoration(
+                                                                color: Colors
+                                                                    .transparent),
                                                         child: Center(
                                                             child: Text(
                                                           '${barang['qty']}',
-                                                          style: TextStyle(
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.white),
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .white),
                                                         )),
                                                       ),
                                                       barang['stock'] == 0
@@ -499,17 +480,17 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                                                               width: 40,
                                                               height: 40,
                                                               decoration: BoxDecoration(
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          255,
-                                                                          73,
-                                                                          73,
-                                                                          73),
+                                                                  color: const Color
+                                                                          .fromARGB(
+                                                                      255,
+                                                                      73,
+                                                                      73,
+                                                                      73),
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
                                                                               50)),
-                                                              child: Center(
+                                                              child: const Center(
                                                                   child: Icon(
                                                                       Icons
                                                                           .add)),
@@ -550,12 +531,12 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                                                                 width: 40,
                                                                 height: 40,
                                                                 decoration: BoxDecoration(
-                                                                    color: Color(
+                                                                    color: const Color(
                                                                         0xFFF1C950),
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             50)),
-                                                                child: Center(
+                                                                child: const Center(
                                                                     child: Icon(
                                                                         Icons
                                                                             .add)),
@@ -578,7 +559,7 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                             },
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 17,
                         ),
                         InkWell(
@@ -632,7 +613,7 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                               }
                               print('tambah');
                             } else {
-                              Center(
+                              const Center(
                                 child: CircularProgressIndicator(),
                               );
                             }
@@ -672,7 +653,7 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                     ),
                   );
                 }
-                return Padding(
+                return const Padding(
                   padding: const EdgeInsets.only(top: 400),
                   child: Center(child: CircularProgressIndicator()),
                 );
