@@ -55,8 +55,8 @@ class _UpdateBarangState extends State<UpdateBarang> {
     CollectionReference inventory = firestore.collection('inventory');
 
     final editName = TextEditingController(text: nama);
-    final editHarga = TextEditingController(text: harga);
-    final editStock = TextEditingController(text: stock);
+    final editHarga = TextEditingController(text: harga.toString());
+    final editStock = TextEditingController(text: stock.toString());
     final editCategory = TextEditingController(text: category);
     return Scaffold(
       body: SingleChildScrollView(
@@ -258,8 +258,8 @@ class _UpdateBarangState extends State<UpdateBarang> {
                             print(selectDrop);
                             await inventory.doc(id).update({
                               "nama_barang": editName.text,
-                              "harga": editHarga.text,
-                              "stock": editStock.text,
+                              "harga": int.parse(editHarga.text),
+                              "stock": int.parse(editStock.text),
                               "category": selectDrop,
 
                               // "tanggal": inputTanggal.text,

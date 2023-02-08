@@ -311,29 +311,63 @@ class _InvoiceScreensState extends State<InvoiceScreens> {
                                                     )
                                                   ],
                                                 ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 10.0,
-                                                          left: 15.0),
-                                                  child: Align(
-                                                    alignment:
-                                                        Alignment.centerLeft,
-                                                    child: Text(
-                                                      "Stock ${barang['stock']}",
-                                                      // "Stock ${value.stock.toString()}",
-                                                      style: const TextStyle(
-                                                        color:
-                                                            Color(0xFFF1C950),
-                                                        fontFamily: "Inter",
-                                                        fontSize: 17,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        letterSpacing: 1,
+                                                barang['stock'] == 0
+                                                    ? const Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                top: 10.0,
+                                                                left: 15.0),
+                                                        child: Align(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: Text(
+                                                            "Stock habis",
+                                                            // "Stock ${value.stock.toString()}",
+                                                            style: TextStyle(
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      206,
+                                                                      0,
+                                                                      0),
+                                                              fontFamily:
+                                                                  "Inter",
+                                                              fontSize: 17,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal,
+                                                              letterSpacing: 1,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    : Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                top: 10.0,
+                                                                left: 15.0),
+                                                        child: Align(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: Text(
+                                                            "Stock ${barang['stock']}",
+                                                            // "Stock ${value.stock.toString()}",
+                                                            style:
+                                                                const TextStyle(
+                                                              color: Color(
+                                                                  0xFFF1C950),
+                                                              fontFamily:
+                                                                  "Inter",
+                                                              fontSize: 17,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal,
+                                                              letterSpacing: 1,
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ),
-                                                ),
                                                 Padding(
                                                   padding:
                                                       const EdgeInsets.only(

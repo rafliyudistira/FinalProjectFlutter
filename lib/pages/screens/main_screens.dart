@@ -217,22 +217,49 @@ class _MainScreenState extends State<MainScreen> {
                                           height: 120,
                                           child:
                                               Image.asset('images/grapes.png')),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 15.0, left: 15.0),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            "Stock ${barang['stock']}",
-                                            style: const TextStyle(
-                                              color: Color(0xFFF1C950),
-                                              fontFamily: "Inter",
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.normal,
-                                              letterSpacing: 1,
+                                      Column(
+                                        children: [
+                                          if (barang['stock'] == 0) ...[
+                                            const Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 15.0, left: 15.0),
+                                              child: Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  "Stock habis",
+                                                  style: TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 190, 0, 0),
+                                                    fontFamily: "Inter",
+                                                    fontSize: 17,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    letterSpacing: 1,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
+                                          ] else ...[
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 15.0, left: 15.0),
+                                              child: Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  "Stock ${barang['stock']}",
+                                                  style: const TextStyle(
+                                                    color: Color(0xFFF1C950),
+                                                    fontFamily: "Inter",
+                                                    fontSize: 17,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    letterSpacing: 1,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ]
+                                        ],
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(

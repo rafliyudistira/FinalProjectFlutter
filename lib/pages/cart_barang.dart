@@ -221,20 +221,38 @@ class _CartBarangState extends State<CartBarang> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
                                         children: [
-                                          IconButton(
-                                            onPressed: () async {
-                                              await inventory
-                                                  .doc(barang.id)
-                                                  .update({
-                                                'select': true,
-                                                'qty': 1,
-                                                "total": barang['harga']
-                                              });
-                                            },
-                                            icon: Icon(Icons.add_shopping_cart),
-                                            color: Color(0xFFF1C950),
-                                            iconSize: 30,
-                                          ),
+                                          barang['stock'] == 0
+                                              ? IconButton(
+                                                  onPressed: () {
+                                                    // await inventory
+                                                    //     .doc(barang.id)
+                                                    //     .update({
+                                                    //   'select': true,
+                                                    //   'qty': 1,
+                                                    //   "total": barang['harga']
+                                                    // });
+                                                  },
+                                                  icon: Icon(
+                                                      Icons.add_shopping_cart),
+                                                  color: Color.fromARGB(
+                                                      255, 84, 84, 84),
+                                                  iconSize: 30,
+                                                )
+                                              : IconButton(
+                                                  onPressed: () async {
+                                                    await inventory
+                                                        .doc(barang.id)
+                                                        .update({
+                                                      'select': true,
+                                                      'qty': 1,
+                                                      "total": barang['harga']
+                                                    });
+                                                  },
+                                                  icon: Icon(
+                                                      Icons.add_shopping_cart),
+                                                  color: Color(0xFFF1C950),
+                                                  iconSize: 30,
+                                                ),
                                         ],
                                       ),
                                       SizedBox(
@@ -242,23 +260,44 @@ class _CartBarangState extends State<CartBarang> {
                                           height: 100,
                                           child:
                                               Image.asset('images/grapes.png')),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 10.0, left: 15.0),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            "Stock ${barang['stock']}",
-                                            style: const TextStyle(
-                                              color: Color(0xFFF1C950),
-                                              fontFamily: "Inter",
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.normal,
-                                              letterSpacing: 1,
+                                      barang['stock'] == 0
+                                          ? const Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 10.0, left: 15.0),
+                                              child: Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  "Stock habis",
+                                                  style: TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 200, 0, 0),
+                                                    fontFamily: "Inter",
+                                                    fontSize: 17,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    letterSpacing: 1,
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          : Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10.0, left: 15.0),
+                                              child: Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  "Stock ${barang['stock']}",
+                                                  style: const TextStyle(
+                                                    color: Color(0xFFF1C950),
+                                                    fontFamily: "Inter",
+                                                    fontSize: 17,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    letterSpacing: 1,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      ),
                                       Padding(
                                         padding: const EdgeInsets.only(
                                             top: 5.0, left: 10.0),
